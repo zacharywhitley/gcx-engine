@@ -1,0 +1,188 @@
+\documentclass[DIV=12,
+               BCOR=12mm,
+               english,
+               twocolumn=false,
+               twoside=false,
+               fontsize=12pt,
+               paper=a4,
+               pagesize,
+               abstract=true,
+               titlepage=true,
+               liststotoc,
+               bibtotoc,
+               idxtotoc,
+               headsepline,
+               footsepline=false,
+               plainfootsepline,
+               plainheadsepline,
+               normalheadings,
+               tocindent,
+               listsleft,
+               pointlessnumbers,
+               tablecaptionbelow,
+               automark,
+               openbib,
+               draft=false,
+               version=last]{scrartcl}
+\ifx\pdftexversion\undefined
+\usepackage[dvips, final]{graphicx}
+\else
+\usepackage[pdftex, final]{graphicx}
+\DeclareGraphicsRule{*}{mps}{*}{}
+\fi
+\usepackage{color}
+% \usepackage{rotating}
+\usepackage[ngerman, english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+% \usepackage[strict, babel, german=quotes, english=american]{csquotes}
+\usepackage[iso, ngerman, english, cleanlook]{isodate}
+\usepackage{colortbl}
+\usepackage{longtable}
+\usepackage[automark]{scrpage2}
+\usepackage[pagebackref=true]{hyperref}
+
+% ###################################################################################################
+% INFORMATION
+% ###################################################################################################
+\newcommand{\mytitlehead}{\gcxshortv}
+\newcommand{\mysubject}{\gcxlongv}
+\newcommand{\mytitle}{G(arbage) C(collected) X(Query) Engine}
+\newcommand{\mysubtitle}{~-- Class Diagrams~--}
+
+\newcommand{\myfirstauthor}{Michael Schmidt}
+\newcommand{\myfirstauthoremail}{mschmidt@informatik.uni-freiburg.de}
+\newcommand{\myfirstauthoremailurl}{mailto:mschmidt@informatik.uni-freiburg.de?subject=GCX Class Diagrams}
+\newcommand{\mysecondauthor}{Gunnar Jehl}
+\newcommand{\mysecondauthoremail}{jehl@informatik.uni-freiburg.de}
+\newcommand{\mysecondauthoremailurl}{mailto:jehl@informatik.uni-freiburg.de?subject=GCX Class Diagrams}
+\newcommand{\myauthor}{\myfirstauthor \ and \mysecondauthor}
+
+\newcommand{\mydate}{May~2009}
+
+\newcommand{\myfirstpublisher}{Saarland University Database Group}
+\newcommand{\mysecondpublisher}{Freiburg University Database Group}
+\newcommand{\mypublisher}{\myfirstpublisher \\ \mysecondpublisher}
+
+\newcommand{\myhyperrefkeywords}{\myfirstpublisher, \mysecondpublisher, \myfirstauthor, \mysecondauthor, \mytitle, \mysubtitle}
+
+\titlehead{\mytitlehead}
+\subject{\mysubject}
+\title{\mytitle}
+\subtitle{\mysubtitle}
+\author{\myfirstauthor\thanks{\href{\myfirstauthoremailurl}{\myfirstauthoremail}} \and \mysecondauthor\thanks{\href{\mysecondauthoremailurl}{\mysecondauthoremail}}}
+\date{\mydate}
+\publishers{\mypublisher}
+
+% ###################################################################################################
+% HEADER/FOOTER
+% ###################################################################################################
+\clearscrheadfoot
+
+\ihead[\gcxshortv]{\gcxshortv}
+\chead[]{}
+\ohead[\headmark]{\headmark}
+\ifoot[]{}
+\cfoot[]{}
+\ofoot[\pagemark]{\pagemark}
+
+\setkomafont{pagehead}{\scshape}
+\setkomafont{pagenumber}{\slshape}
+
+\pagestyle{scrheadings}
+
+\linespread{1.25}
+\typearea[current]{last}
+
+\addtokomafont{section}{\color{sectioncolor}}
+
+% ###################################################################################################
+% COLORS
+% ###################################################################################################
+\newboolean{blackwhite}
+\setboolean{blackwhite}{false}
+
+\ifblackwhite % BLACK-WHITE
+\definecolor{sectioncolor}{rgb}{0.000000,0.000000,0.000000}
+
+\definecolor{tablefirstrowcolor}{rgb}{1.000000,1.000000,1.000000}
+\definecolor{tablefirstcolcolor}{rgb}{1.000000,1.000000,1.000000}
+\definecolor{tablelegendcolcolor}{rgb}{1.000000,1.000000,1.000000}
+
+\definecolor{hyperreflinkcolor}{rgb}{0.000000,0.000000,0.000000}
+\definecolor{hyperrefanchorcolor}{rgb}{0.000000,0.000000,0.000000}
+\definecolor{hyperrefcitecolor}{rgb}{0.000000,0.000000,0.000000}
+\definecolor{hyperreffilecolor}{rgb}{0.000000,0.000000,0.000000}
+\definecolor{hyperrefmenucolor}{rgb}{0.000000,0.000000,0.000000}
+\definecolor{hyperrefurlcolor}{rgb}{0.000000,0.000000,0.000000}
+\else % COLOR
+\definecolor{sectioncolor}{rgb}{0.074510,0.247060,0.423520}
+
+\definecolor{tablefirstrowcolor}{rgb}{0.950000,0.950000,0.950000}
+\definecolor{tablefirstcolcolor}{rgb}{0.950000,0.950000,0.950000}
+\definecolor{tablelegendcolcolor}{rgb}{0.900000,0.900000,0.900000}
+
+\definecolor{hyperreflinkcolor}{rgb}{0.000000,0.000000,0.500000}
+\definecolor{hyperrefanchorcolor}{rgb}{1.000000,0.000000,0.000000}
+\definecolor{hyperrefcitecolor}{rgb}{0.000000,0.392157,0.000000}
+\definecolor{hyperreffilecolor}{rgb}{1.000000,0.000000,0.000000}
+\definecolor{hyperrefmenucolor}{rgb}{1.000000,0.000000,0.000000}
+\definecolor{hyperrefurlcolor}{rgb}{0.000000,0.000000,1.000000}
+\fi
+
+% ###################################################################################################
+% PICTURES/IMAGES FOLDER
+% ###################################################################################################
+\graphicspath{{diagrams/}}
+
+% ###################################################################################################
+% PICTURE/IMAGES/TABLE SIZE/ROTATION
+% ###################################################################################################
+\newlength{\imgwidth}
+\setlength{\imgwidth}{0.66\pdfpageheight}
+\newcommand{\myangle}{90}
+\newlength{\tablwidth}
+\setlength{\tablwidth}{\textwidth}
+
+% ###################################################################################################
+% MISC
+% ###################################################################################################
+\newcommand{\gcxlongv}[0]{GCX Engine Version 2.1}
+\newcommand{\gcxshortv}[0]{v2.1}
+
+\newcommand*{\mythickhline}{%
+\hline\hline
+}
+
+% ###################################################################################################
+% HYPERREF SETTINGS
+% ###################################################################################################
+\hypersetup{draft=false,
+            final=true,
+            % a4paper=true,
+            setpagesize=false,
+            linktocpage=true,
+            colorlinks=true,
+            linkcolor=hyperreflinkcolor,
+            anchorcolor=hyperrefanchorcolor,
+            citecolor=hyperrefcitecolor,
+            filecolor=hyperreffilecolor,
+            menucolor=hyperrefmenucolor,
+            urlcolor=hyperrefurlcolor,
+            bookmarksopen=true,
+            bookmarksnumbered=true,
+            pdfpagemode={UseOutlines},
+            pdfdisplaydoctitle=true,
+            pdffitwindow=true,
+            pdflang={DE},
+            pdfnewwindow=true,
+            pdfpagelayout={SinglePage},
+            pdftitle={\mytitle\ \mysubtitle},
+            pdfauthor={\textcopyright\ \myauthor},
+            pdfsubject={\gcxlongv:\ \mytitle\ \mysubtitle},
+            pdfcreator={\LaTeX\ mit KOMA-Script und \flqq hyperref\frqq-Paket},
+            pdfproducer={pdfTeX-1.\the\pdftexversion\pdftexrevision},
+            pdfkeywords={\myhyperrefkeywords}
+}
+
+\urlstyle{same} 

@@ -1,0 +1,278 @@
+\section{Installation}
+
+\subsection{Requirements}
+The easiest way to get started with GCX is to download one of the pre-compiled binaries
+from sourceforge.net at
+\begin{center}
+\href{http://sourceforge.net/project/showfiles.php?group_id=258398}{http://sourceforge.net/project/showfiles.php?group\_id=258398}.
+\end{center}
+
+\noindent For the latest release there are currently binaries for Linux, Mac OS and Windows (i386
+architecture) available.
+
+If your operating system is not yet supported, i.e. there is no pre-compiled binary for your operating system available, you need to compile the GCX engine from source. If you need to compile it manually you will find ready-to-use Makefiles for Linux and Windows (Makefile.Linux/Makefile.Windows) in the \emph{src} folder. \\
+
+\noindent \textbf{Note}: \emph{If you want to compile the GCX engine from the sources using Mac OS you should use the Linux Makefile (Makefile.Linux).} \\
+
+\noindent Before manual compilation you should make sure that the following required (additional) tools are installed.
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \item GNU Make  (installation tested with version 3.81)
+  \item GNU Bison (installation tested with version 2.1 and 2.3)
+  \item GNU Flex  (installation tested with version 2.5.4 and 2.5.33)
+  \item GNU Sed   (installation tested with version 4.1.5)
+\end{itemize}
+
+\clearpage
+
+\subsection{Using the Binaries}
+If you decide to use one of the binaries, no installation is needed. Simply download the binary bundle that corresponds to your operating system
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \item Linux: \enquote{\emph{gcx\_2-1\_bin\_linux.tar.gz}}
+  \item Windows: \enquote{\emph{gcx\_2-1\_bin\_win32.zip}}
+  \item Mac OS: \enquote{\emph{gcx\_2-1\_bin\_macos.tar.gz}}
+\end{itemize}
+
+\noindent and extract the file. This will~-- for all operating systems~-- create the following directory structure (where OS denotes your chosen operating system). \\
+
+\label{dirtree_(installation):using_the_binaries}
+\dirtree{%
+  .1 gcx\_2-1\_bin\_OS\DTcomment{
+       \begin{minipage}[t]{8cm}
+         The root folder. \\
+       \end{minipage}}.
+  .2 bin\DTcomment{
+       \begin{minipage}[t]{8cm}
+         This folder contains the binary. \\
+       \end{minipage}}.
+  .2 examples\DTcomment{
+       \begin{minipage}[t]{8cm}
+         This folder contains sample queries \\ for testing purpose. \\
+       \end{minipage}}.
+  .3 sgml\DTcomment{
+       \begin{minipage}[t]{8cm}
+         This folder contains \emph{sgml} sample \\ queries. \\
+       \end{minipage}}.
+  .3 tree\DTcomment{
+       \begin{minipage}[t]{8cm}
+         This folder contains \emph{tree} sample \\ queries. \\
+       \end{minipage}}.
+  .3 xmark\DTcomment{
+       \begin{minipage}[t]{8cm}
+         This folder contains \emph{xmark} sample \\ queries. \\
+       \end{minipage}}.
+  .3 xmp\DTcomment{
+       \begin{minipage}[t]{8cm}
+         This folder contains \emph{xmp} sample \\ queries. \\
+       \end{minipage}}.
+}
+
+\noindent The executable (Linux/Mac OS: \emph{gcx} or Windows: \emph{gcx.exe}, depending on the operating system) is found in the \emph{bin} directory. To run GCX, simply open a \emph{shell} (Linux/Mac OS) or a \emph{command prompt window} (Windows), change into the \emph{bin} directory, and run the executable. We refer the reader to \autoref{section:command-line_arguments} for the usage and the complete list of available command-line arguments.
+
+\clearpage
+
+\subsection{Compiling the Sources}
+
+\subsubsection{Compiling under Linux/Mac OS}
+\textbf{Note}: \emph{If you are using Mac OS you will also need to install~-- if not already present~-- the following required (additional) tools.
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \item GNU Bison from \\
+        \href{http://www.gnu.org/software/bison/bison.html}{http://www.gnu.org/software/bison/bison.html}.
+  \item GNU Flex from \\
+        \href{http://flex.sourceforge.net/}{http://flex.sourceforge.net/}.
+  \item GNU Sed from \\
+        \href{http://www.gnu.org/software/sed/sed.html}{http://www.gnu.org/software/sed/sed.html}.
+\end{itemize}}
+
+\begin{enumerate}
+  \item Download the archive \enquote{\emph{gcx\_2-1\_src.tar.gz}} (you can also download the \emph{.zip} archive \enquote{\emph{gcx\_2-1\_src.zip}}) from
+\begin{center}
+\href{http://sourceforge.net/project/showfiles.php?group_id=258398}{http://sourceforge.net/project/showfiles.php?group\_id=258398}.
+\end{center}
+  \item Extract the archive by typing
+        \begin{itemize}
+          \setlength{\itemsep}{0pt}
+          \item[] \texttt{> tar -xzf gcx\_2-1\_src.tar.gz}
+        \end{itemize}
+        \noindent in a shell. \clearpage This will create the following directory structure. \\
+{\dirtree{%
+  .1 \hspace{-1.3cm} gcx\_2-1\_src\DTcomment{
+       \begin{minipage}[t]{8cm}
+         The root folder. \\
+       \end{minipage}}.
+  .2 bin\DTcomment{
+       \begin{minipage}[t]{8cm}
+         This folder is empty and will \\ ~-- after compilation~-- contain \\ the binary. \\
+       \end{minipage}}.
+  .2 examples\DTcomment{
+       \begin{minipage}[t]{8cm}
+         This folder contains sample queries \\ for testing purpose. \\
+       \end{minipage}}.
+  .3 sgml\DTcomment{
+       \begin{minipage}[t]{8cm}
+         This folder contains \emph{sgml} sample \\ queries. \\
+       \end{minipage}}.
+  .3 tree\DTcomment{
+       \begin{minipage}[t]{8cm}
+         This folder contains \emph{tree} sample \\ queries. \\
+       \end{minipage}}.
+  .3 xmark\DTcomment{
+       \begin{minipage}[t]{8cm}
+         This folder contains \emph{xmark} sample \\ queries. \\
+       \end{minipage}}.
+  .3 xmp\DTcomment{
+       \begin{minipage}[t]{8cm}
+         This folder contains \emph{xmp} sample \\ queries. \\
+       \end{minipage}}.
+  .2 src\DTcomment{
+       \begin{minipage}[t]{8cm}
+         This folder contains all required \\ sources for compilation. \\
+       \end{minipage}}.
+}}
+  \item Step into the \emph{src} directory by typing
+        \begin{itemize}
+          \setlength{\itemsep}{0pt}
+          \item[] \texttt{> cd ./gcx\_2-1\_src/src}
+        \end{itemize}
+        \noindent in a shell.
+  \item Optionally, but not necessarily, you may want to enable or disable one or more special features by uncommenting or adding \texttt{FLAGS} in the Makefile (Makefile.Linux). A complete list of all available compilation \texttt{FLAGS} can be found in \autoref{subsection_(installation):compiling_with_without_special_features}.
+      \clearpage
+  \item Now type
+        \begin{itemize}
+          \setlength{\itemsep}{0pt}
+          \item[] \texttt{> make -f Makefile.Linux}
+        \end{itemize}
+        \noindent to compile the sources. After compilation a binary file named \emph{gcx} will be created in the \emph{bin} directory.
+  \item You might also consider to add the \emph{bin} directory to your \texttt{PATH} variable or creating a link to the \emph{gcx} binary in \emph{/usr/bin}.
+\end{enumerate}
+
+\subsubsection{Compiling under Windows}
+In case you are using Windows we recommend the MinGW environment from
+\begin{center}
+\href{http://www.mingw.org}{http://www.mingw.org}
+\end{center}
+
+\noindent to install GCX. You will also need to install~-- if not already present~-- the following required (additional) tools.
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \item GnuWin32 Make from \\
+        \href{http://gnuwin32.sourceforge.net/packages/make.htm}{http://gnuwin32.sourceforge.net/packages/make.htm}.
+  \item GnuWin32 Bison from \\
+        \href{http://gnuwin32.sourceforge.net/packages/bison.htm}{http://gnuwin32.sourceforge.net/packages/bison.htm}.
+  \item GnuWin32 Flex from \\
+        \href{http://gnuwin32.sourceforge.net/packages/flex.htm}{http://gnuwin32.sourceforge.net/packages/flex.htm}.
+  \item GnuWin32 Sed from \\
+        \href{http://gnuwin32.sourceforge.net/packages/sed.htm}{http://gnuwin32.sourceforge.net/packages/sed.htm}.
+\end{itemize}
+
+\begin{enumerate}
+  \item Download the archive \enquote{\emph{gcx\_2-1\_src.zip}} (you can also download the \emph{.gz} archive \enquote{\emph{gcx\_2-1\_src.tar.gz}}) from
+\begin{center}
+\href{http://sourceforge.net/project/showfiles.php?group_id=258398}{http://sourceforge.net/project/showfiles.php?group\_id=258398}.
+\end{center}
+  \item Extract the archive \enquote{\emph{gcx\_2-1\_src.zip}}. \clearpage This will create the following directory structure. \\
+{\dirtree{%
+  .1 \hspace{-1.3cm} gcx\_2-1\_src\DTcomment{
+       \begin{minipage}[t]{8cm}
+         The root folder. \\
+       \end{minipage}}.
+  .2 bin\DTcomment{
+       \begin{minipage}[t]{8cm}
+         This folder is empty and will \\ ~-- after compilation~-- contain \\ the binary. \\
+       \end{minipage}}.
+  .2 examples\DTcomment{
+       \begin{minipage}[t]{8cm}
+         This folder contains sample queries \\ for testing purpose. \\
+       \end{minipage}}.
+  .3 sgml\DTcomment{
+       \begin{minipage}[t]{8cm}
+         This folder contains \emph{sgml} sample \\ queries. \\
+       \end{minipage}}.
+  .3 tree\DTcomment{
+       \begin{minipage}[t]{8cm}
+         This folder contains \emph{tree} sample \\ queries. \\
+       \end{minipage}}.
+  .3 xmark\DTcomment{
+       \begin{minipage}[t]{8cm}
+         This folder contains \emph{xmark} sample \\ queries. \\
+       \end{minipage}}.
+  .3 xmp\DTcomment{
+       \begin{minipage}[t]{8cm}
+         This folder contains \emph{xmp} sample \\ queries. \\
+       \end{minipage}}.
+  .2 src\DTcomment{
+       \begin{minipage}[t]{8cm}
+         This folder contains all required \\ sources for compilation. \\
+       \end{minipage}}.
+}}
+  \item Step into the \emph{src} directory by typing
+        \begin{itemize}
+          \setlength{\itemsep}{0pt}
+          \item[] \texttt{> cd ./gcx\_2-1\_src/src}
+        \end{itemize}
+        \noindent in a command prompt window.
+  \item Optionally, but not necessarily, you may want to enable or disable one or more special features by uncommenting or adding \texttt{FLAGS} in the Makefile (Makefile.Windows). A complete list of all available compilation \texttt{FLAGS} can be found in \autoref{subsection_(installation):compiling_with_without_special_features}.
+      \clearpage
+  \item Now type
+        \begin{itemize}
+          \setlength{\itemsep}{0pt}
+          \item[] \texttt{> make -f Makefile.Windows}
+        \end{itemize}
+        \noindent to compile the sources. After compilation a binary file named \emph{gcx.exe} will be created in the \emph{bin} directory.
+  \item You might also consider to add the \emph{bin} directory to your \texttt{PATH} variable.
+\end{enumerate}
+
+\subsection{Compiling with/without Special Features}
+\label{subsection_(installation):compiling_with_without_special_features}
+
+There are several \texttt{FLAGS} that enable or disable one or more (special) features. These \texttt{FLAGS} can be found in both Makefiles (Makefile.Linux/Makefile.Windows) and have the following effects.
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \item \texttt{-DROLE\_REFCOUNT}: Use reference counting instead of role (multi-)sets; this implementation is faster, but not suited for debugging purposes, since role IDs are \enquote{invisible}. It is strongly recommended to turn this compile option ON.
+  \item \texttt{-DNO\_OPTIMIZATIONS}: Disable (most of the) optimizations; this should be used only for debugging purposes or to get better insights into the engine's internal processing strategy.
+  \item \texttt{-DREWRITE\_VARSTEPS}: Rewrite varstep expressions into for-loops. On the one hand this option causes earlier signOff statement execution but on the other hand it (might) interfere with other optimizations and therefore can slow down query evaluation.
+  \item \texttt{-DVALIDATION}: Enable XML document validation; please note that only those parts of the XML document are validated that are kept according to the projection strategy. For the remaining part only depth is kept track of (but closing tags are not matched against opening tags). You should ignore this option if you are sure that your XML documents are well-formed.
+\end{itemize}
+
+\noindent By default, both Makefiles (Makefile.Linux/Makefile.Windows) come with
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \item[] \texttt{FLAGS = -DROLE\_REFCOUNT}.
+\end{itemize}
+
+\noindent If you want to adjust \texttt{FLAGS} to your own needs this must be done before compilation of the sources.
+
+\clearpage
+
+\noindent To change \texttt{FLAGS} you can either uncomment one of the following lines in your Makefile (Makefile.Linux/Makefile.Windows)
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \item[] \texttt{\# FLAGS = -DROLE\_REFCOUNT -DREWRITE\_VARSTEPS}
+  \item[] \texttt{\# FLAGS = -DROLE\_REFCOUNT -DNO\_OPTIMIZATIONS}
+  \item[] \texttt{\# FLAGS = -DROLE\_REFCOUNT -DNO\_OPTIMIZATIONS -DREWRITE\_VARSTEPS}
+\end{itemize}
+
+\noindent by removing the \texttt{\#} before one of these line or just type your own \texttt{FLAGS} line, for example \begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \item[] \texttt{FLAGS = -DROLE\_REFCOUNT -DVALIDATION}
+\end{itemize}
+
+\noindent if you want to use role (multi-)sets instead of reference counting and want to ensure that your XML document is well-formed. \\
+
+\noindent After changing \texttt{FLAGS} you need to \emph{clean} and \emph{rebuild} GCX by typing
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \item[] \texttt{> make -f Makefile.Linux clean all}
+\end{itemize}
+
+\noindent or
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \item[] \texttt{> make -f Makefile.Windows clean all}
+\end{itemize}
+
+\noindent depending on your operating system. \\ \\
+
+\textbf{Warning}: \emph{Compiling GCX with different \texttt{FLAGS} such as \texttt{-DVALIDATION} for XML document well-formed validation or \texttt{-DNO\_OPTIMIZATIONS} to disable (most of the) optimizations might significantly slow down query evaluation and is not a recommended compile option!}

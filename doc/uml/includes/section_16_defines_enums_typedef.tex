@@ -1,0 +1,171 @@
+\section{Defines/Enums/Typedef}
+
+\subsection{Defines}
+\begin{tiny}
+\begin{longtable}[ht]{|p{0.45\tablwidth}|p{0.15\tablwidth}|p{0.3\tablwidth}|}
+  \caption[Defines]{Defines}
+  \label{table_(defines_enums_typedef):defines} \\
+  \hline
+  \endfirsthead
+  \caption[Defines (cont'd)]{Defines (cont'd)} \\
+  \hline
+  \multicolumn{3}{l}{\textsl{continuation from previous side \ldots}} \\
+  \hline \cellcolor{tablefirstrowcolor} \textsc{Name} & \cellcolor{tablefirstrowcolor} \textsc{Values} & \cellcolor{tablefirstrowcolor} \textsc{File} \\
+  \hline
+  \endhead
+  \hline
+  \multicolumn{3}{r}{\textsl{continuation on the next side \ldots}} \\
+  \hline
+  \endfoot
+  \hline
+  \endlastfoot
+
+  \hline \cellcolor{tablefirstrowcolor} \textsc{Name} & \cellcolor{tablefirstrowcolor} \textsc{Values} & \cellcolor{tablefirstrowcolor} \textsc{File} \\
+  \mythickhline OUTPUT\_AVG\_ON\_EMPTY\_SEQUENCE & "" & aggregatefunctavgexpression.h \\
+  \hline OUTPUT\_COUNT\_ON\_EMPTY\_SEQUENCE & 0 & aggregatefunctcountexpression.h \\
+  \hline OUTPUT\_MAX\_ON\_EMPTY\_SEQUENCE & "" & aggregatefunctmaxexpression.h \\
+  \hline OUTPUT\_MEDIAN\_ON\_EMPTY\_SEQUENCE & "" & aggregatefunctmedianexpression.h \\
+  \hline OUTPUT\_MIN\_ON\_EMPTY\_SEQUENCE & "" & aggregatefunctminexpression.h \\
+  \hline OUTPUT\_STDDEVPOP\_ON\_EMPTY\_SEQUENCE & "" & aggregatefunctstddevpopexpression.h \\
+  \hline OUTPUT\_STDDEVSAMP\_ON\_EMPTY\_SEQUENCE & "" & aggregatefunctstddevsampexpression.h \\
+  \hline OUTPUT\_SUM\_ON\_EMPTY\_SEQUENCE & 0 & aggregatefunctsumexpression.h \\
+  \hline OUTPUT\_VARPOP\_ON\_EMPTY\_SEQUENCE & "" & aggregatefunctvarpopexpression.h \\
+  \hline OUTPUT\_VARSAMP\_ON\_EMPTY\_SEQUENCE & "" & aggregatefunctvarsampexpression.h \\
+  \mythickhline READ\_UP\_TO\_CLOSE\_BASE & 0 & bufferiterator.h \\
+  \hline READ\_UP\_TO\_CLOSE\_CONTEXT & 1 & bufferiterator.h \\
+  \hline READ\_UP\_TO\_CLOSE\_NONE & 2 & bufferiterator.h \\
+  \mythickhline LOCK\_CONTEXT\_NO\_CLEAR & 10 & bufferiterator.h \\
+  \hline LOCK\_CONTEXT\_LAST\_CLEAR & 11 & bufferiterator.h \\
+  \hline LOCK\_CONTEXT\_ALWAYS\_CLEAR & 12 & bufferiterator.h \\
+  \hline LOCK\_NONE\_NO\_CLEAR & 13 & bufferiterator.h \\
+  \mythickhline BIT\_DEBUG\_MODE\_FULL & 0 & bufferiterator.h \\
+  \hline BIT\_DEBUG\_MODE\_PARTIAL & 1 & bufferiterator.h \\
+  \hline BIT\_DEBUG\_MODE\_SIMPLE & 2 & bufferiterator.h \\
+  \mythickhline TYPE\_TAG & true & buffernode.h \\
+  \hline TYPE\_PCDATA & false & buffernode.h \\
+  \mythickhline DBG\_YACC & & debug.h \\
+  \mythickhline EVAL\_QUERY & 0 & expression.h \\
+  \hline EVAL\_QUERY\_SILENT & 1 & expression.h \\
+  \hline EVAL\_SIGNOFF & 2 & expression.h \\
+  \mythickhline OUTPUT\_ABS\_ON\_NON\_VALUE & "" & functabsexpression.h \\
+  \hline OUTPUT\_CEILING\_ON\_NON\_VALUE & "" & functceilingexpression.h \\
+  \hline OUTPUT\_COVER\_ON\_NON\_VALUE & "" & functcoverexpression.h \\
+  \hline OUTPUT\_FLOOR\_ON\_NON\_VALUE & "" & functfloorexpression.h \\
+  \hline OUTPUT\_ROUND\_ON\_NON\_VALUE & "" & functroundexpression.h \\
+  \hline OUTPUT\_ROUNDHALFTOEVEN\_ON\_NON\_VALUE & "" & functroundhalftoevenexpression.h \\
+  \hline OUTPUT\_TRUNCATE\_ON\_NON\_VALUE & "" & functtruncateexpression.h \\
+  \mythickhline ROUND\_TO\_DECIMAL\_PLACE & 16 & miscfunctions.h \\
+  \hline REPLACE\_DECIMAL\_POINT\_BEFORE & true & miscfunctions.h \\
+  \hline REPLACE\_DECIMAL\_POINT\_AFTER & false & miscfunctions.h \\
+  \mythickhline NEWLINE & "$\backslash$n" & outputstream.h \\
+  \hline INDENT\_TOKEN & " " & outputstream.h \\
+  \hline INDENT\_MULTIPLICATOR & 2 & outputstream.h \\
+  \hline INDENT\_SINGLE & 1 & outputstream.h \\
+  \hline INDENT\_DOUBLE & 2 & outputstream.h \\
+  \mythickhline TAG\_SHADOW\_FRONT & ".shadow\_front" & pathexpressionadornment.h \\
+  \hline TAG\_SHADOW\_TAIL & ".shadow\_tail" & pathexpressionadornment.h \\
+  \mythickhline WEIGHT\_AXIS\_CHILD & 1 & pathstepexpression.h \\
+  \hline WEIGHT\_AXIS\_DESCENDANT & 3 & pathstepexpression.h \\
+  \hline WEIGHT\_AXIS\_DOS & 3 & pathstepexpression.h \\
+  \hline WEIGHT\_INNER\_NODETEST & 1 & pathstepexpression.h \\
+  \hline WEIGHT\_NODETEST\_NODE & 3 & pathstepnodeexpression.h \\
+  \hline WEIGHT\_NODETEST\_STAR & 2 & pathstepstarexpression.h \\
+  \hline WEIGHT\_NODETEST\_TAG & 2 & pathsteptagexpression.h \\
+  \hline WEIGHT\_NODETEST\_TEXT & 4 & pathsteptextexpression.h \\
+
+  \newpage
+
+  \mythickhline TRANSITION\_UNKNOWN & 0 & projectiondfatransitions.h \\
+  \hline TRANSITION\_REGULAR & 1 & projectiondfatransitions.h \\
+  \hline TRANSITION\_SKIP\_SUBTREE & 2 & projectiondfatransitions.h \\
+  \hline TRANSITION\_KEEP\_SUBTREE & 3 & projectiondfatransitions.h \\
+  \mythickhline YYDEBUG & 1 & query\_parser.y \\
+  \hline YYPRINT(file, type, value) & -- & query\_parser.y \\
+  \mythickhline HASH\_BASE & 31 & stringhash.h \\
+  \mythickhline ROOTVAR & ".root" & typeenums.h  \\
+  \hline TAGID\_ROOT & 0 & typeenums.h \\
+  \mythickhline VERSION\_NUMBER & "2.1" & version.h \\
+  \hline
+\end{longtable}
+\end{tiny}
+
+\clearpage
+
+\subsection{Enums}
+\begin{tiny}
+\begin{longtable}[ht]{|p{0.225\tablwidth}|p{0.375\tablwidth}|p{0.3\tablwidth}|}
+  \caption[Enums]{Enums}
+  \label{table_(defines_enums_typedef):enums} \\
+  \hline
+  \endfirsthead
+  \caption[Enums (cont'd)]{Enums (cont'd)} \\
+  \hline
+  \multicolumn{3}{l}{\textsl{continuation from previous side \ldots}} \\
+  \hline \cellcolor{tablefirstrowcolor} \textsc{Name} & \cellcolor{tablefirstrowcolor} \textsc{Values} & \cellcolor{tablefirstrowcolor} \textsc{File} \\
+  \hline
+  \endhead
+  \hline
+  \multicolumn{3}{r}{\textsl{continuation on the next side \ldots}} \\
+  \hline
+  \endfoot
+  \hline
+  \endlastfoot
+
+  \hline \cellcolor{tablefirstrowcolor} \textsc{Name} & \cellcolor{tablefirstrowcolor} \textsc{Values} & \cellcolor{tablefirstrowcolor} \textsc{File} \\
+  \hline short\_opts & opt\_iqstream = '1' \newline opt\_ixstream = '2' \newline opt\_oestream = '3' \newline opt\_odstream = '4' \newline opt\_query\_arg = 'q' \newline opt\_xml\_arg = 'x' \newline opt\_eout\_arg = 'e' \newline opt\_dout\_arg = 'o' \newline opt\_debug = 'd' \newline opt\_streamdebug = 's' \newline opt\_streamnodebug = 'b' \newline opt\_fragmentxq = 'f' \newline opt\_version = 'v' \newline opt\_about = 'a' \newline opt\_help = 'h' & main.cpp \\
+  \hline ROLE\_TYPE & rt\_root \newline rt\_variable \newline rt\_condition \newline rt\_output & typeenums.h \\
+  \hline AXIS\_TYPE & at\_child \newline at\_descendant \newline at\_dos & typeenums.h \\
+  \hline NODETEST\_TYPE & ntt\_tag \newline ntt\_star \newline ntt\_node \newline ntt\_text & typeenums.h \\
+  \hline ATTRIBUTE\_TYPE & at\_position & typeenums.h \\
+  \hline COMP\_TYPE & ct\_lt \newline ct\_leq \newline ct\_eq \newline ct\_gt \newline ct\_geq \newline ct\_neq & typeenums.h \\
+
+  \newpage
+
+  \hline EXP\_TYPE & ect\_and \newline ect\_or \newline ect\_not \newline ect\_exists \newline ect\_empty \newline
+  ect\_varstep \newline ect\_operand \newline ect\_true \newline ect\_false \newline et\_empty \newline et\_stringconst \newline et\_numericconst \newline et\_for \newline et\_where \newline et\_if \newline et\_doc \newline et\_comment \newline et\_nodeconstr \newline et\_path \newline et\_pathsteptag \newline et\_pathstepstar \newline et\_pathstepnode \newline et\_pathsteptext \newline et\_sequence \newline et\_var \newline et\_varstep \newline et\_signoff \newline et\_operandvar \newline et\_operandvarstep \newline et\_operandaggregatefunct \newline et\_operandrounding \newline et\_operandconst \newline et\_aggregatefunctsum \newline et\_aggregatefunctavg \newline et\_aggregatefunctmin \newline et\_aggregatefunctmax \newline et\_aggregatefunctcount \newline et\_aggregatefunctstddevsamp \newline et\_aggregatefunctstddevpop \newline et\_aggregatefunctvarsamp \newline et\_aggregatefunctvarpop \newline et\_aggregatefunctmedian \newline et\_abs \newline et\_ceiling \newline et\_cover \newline et\_floor \newline et\_round \newline et\_roundhalftoeven \newline et\_truncate & typeenums.h \\
+  \hline ISTREAM\_TYPE & it\_file \newline it\_null \newline it\_socket \newline it\_stdin & typeenums.h \\
+  \hline OSTREAM\_TYPE & ot\_file \newline ot\_null \newline ot\_socket \newline ot\_stdout & typeenums.h \\
+
+  \newpage
+
+  \hline EXCEPTION\_TYPE & exct\_argument \newline exct\_iostream \newline exct\_parse \newline exct\_runtime \newline exct\_cast \newline exct\_impl & typeenums.h \\
+  \hline EXCEPTION\_LEVEL & excl\_warning \newline excl\_error \newline excl\_fatal & typeenums.h \\
+  \hline ERROR\_ID & eid\_notset = 0 \newline eid\_argument = 100 \newline eid\_stream = 200 \newline eid\_stream\_input = 201 \newline eid\_stream\_output = 202 \newline eid\_parse = 300 \newline eid\_parse\_query = 301 \newline eid\_parse\_xml = 302 \newline eid\_runtime = 400 \newline eid\_runtime\_illegalmode = 401 \newline eid\_runtime\_bit = 402 \newline eid\_runtime\_tokenconfig = 403 \newline eid\_runtime\_ptlabel = 404 \newline eid\_cast = 500 \newline eid\_cast\_stringnumeric = 501 \newline eid\_cast\_numericstring = 502 \newline eid\_cast\_summation = 503 \newline eid\_cast\_power = 504 \newline eid\_cast\_radical = 505 \newline eid\_cast\_division = 506 \newline eid\_impl = 600 & typeenums.h \\
+  \hline VALUE\_TYPE & xsd\_numeric \newline xsd\_string \newline xsd\_unknown & typeenums.h \\
+  \hline
+\end{longtable}
+\end{tiny}
+
+\clearpage
+
+\subsection{Typedef}
+\begin{tiny}
+\begin{longtable}[ht]{|p{0.2\tablwidth}|p{0.4\tablwidth}|p{0.3\tablwidth}|}
+  \caption[Typedef]{Typedef}
+  \label{table_(defines_enums_typedef):typedef} \\
+  \hline
+  \endfirsthead
+  \caption[Typedef (cont'd)]{Typedef (cont'd)} \\
+  \hline
+  \multicolumn{3}{l}{\textsl{continuation from previous side \ldots}} \\
+  \hline \cellcolor{tablefirstrowcolor} \textsc{Name} & \cellcolor{tablefirstrowcolor} \textsc{Values} & \cellcolor{tablefirstrowcolor} \textsc{File} \\
+  \hline
+  \endhead
+  \hline
+  \multicolumn{3}{r}{\textsl{continuation on the next side \ldots}} \\
+  \hline
+  \endfoot
+  \hline
+  \endlastfoot
+
+  \hline \cellcolor{tablefirstrowcolor} \textsc{Name} & \cellcolor{tablefirstrowcolor} \textsc{Values} & \cellcolor{tablefirstrowcolor} \textsc{File} \\
+  \hline Env & map<unsigned, BufferNode*> & environment.h \\
+  \hline VarVarMap & map<unsigned, unsigned> & fsamap.h \\
+  \hline VarVarPathMap & map<unsigned, pair<unsigned, PathExpression*> > & parvarmap.h \\
+  \hline PEnv & map<unsigned, PathExpression*> & pathenvironment.h \\
+  \hline var\_list\_type & list< pair<VarExpression*, Expression*> > & query\_lexer.l \\
+  \hline var\_list\_type & list< pair<VarExpression*, Expression*> > & query\_parser.y \\
+  \hline TAG & unsigned & tagmap.h \\
+  \hline
+\end{longtable}
+\end{tiny} 
