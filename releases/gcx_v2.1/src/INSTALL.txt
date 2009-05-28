@@ -1,0 +1,262 @@
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+     I N S T A L L A T I O N   I N S T R U C T I O N S
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+==============================
+TABLE OF CONTENTS
+==============================
+  1. REQUIREMENTS
+  2. USING THE BINARIES
+  3. COMPILING THE SOURCES
+     3.1 COMPILING UNDER LINUX/MAC OS
+     3.2 COMPILING UNDER WINDOWS 
+  4. COMPILING WITH/WITHOUT SPECIAL FEATURES
+
+
+------------------------------
+1. REQUIREMENTS
+------------------------------
+The easiest way to get started with GCX is to download one of the
+pre-compiled binaries from sourceforge.net.
+For the latest release there are currently binaries for Linux,
+Mac OS and Windows (i386 architecture) available.
+
+If your operating system is not yet supported, i.e. there is no
+pre-compiled binary for your operating system available, you need
+to compile the GCX engine from source. If you need to compile it
+manually you will find ready-to-use Makefiles for Linux and
+Windows (Makefile.Linux/Makefile.Windows) in the src folder.
+
+Note: If you want to compile the GCX engine from source using
+Mac OS you should use the Linux Makefile (Makefile.Linux).
+
+Before manual compilation you must make sure that the following
+required (additional) tools are installed.
+
+  -> GNU Make  (installation tested with version 3.81)
+  -> GNU Bison (installation tested with version 2.1 and 2.3)
+  -> GNU Flex  (installation tested with version 2.5.4 and 2.5.33)
+  -> GNU Sed   (installation tested with version 4.1.5)
+
+
+------------------------------
+2. USING THE BINARIES
+------------------------------
+If you decide to use one of the binaries, no installation is needed.
+Simply download the binary bundle that corresponds to your operating
+system
+
+  -> Linux:   'gcx_2-1_bin_linux.tar.gz'
+  -> Windows: 'gcx_2-1_bin_win32.zip'
+  -> Mac OS:  'gcx_2-1_bin_macos.tar.gz'
+
+and extract the file. This will - for all operating systems - create
+the following directory structure (whereas OS denotes your chosen
+operating system).
+
+  -> gcx_2-1_bin_OS        The root folder.
+    -> bin                 This folder contains the binary.
+    -> examples            This folder contains sample queries
+                           for testing purpose.
+      -> sgml              This folder contains sgml sample queries.
+      -> tree              This folder contains tree sample queries.
+      -> xmark             This folder contains xmark sample queries.
+      -> xmp               This folder contains xmp sample queries.
+
+The executable (Linux/Mac OS: 'gcx' or Windows: 'gcx.exe', depending on
+your chosen operating system) is found in the bin directory. To run
+GCX, simply open a shell (Linux/Mac OS) or a command prompt window
+(Windows), change into the bin directory, and run the executable.
+
+
+------------------------------
+3. COMPILING THE SOURCES
+------------------------------
+
+------------------------------
+3.1 COMPILING UNDER LINUX/MAC OS
+------------------------------
+Note: If you are using Mac OS you will also need to install - if not
+already present - the following required (additional) tools.
+
+  -> GNU Bison from
+     http://www.gnu.org/software/bison/bison.html.
+  -> GNU Flex from
+     http://flex.sourceforge.net/.
+  -> GNU Sed from
+     http://www.gnu.org/software/sed/sed.html.
+
+(1) Download the archive 'gcx_2-1_src.tar.gz' (you can also download
+    the .zip archive 'gcx_2-1_src.zip') from
+
+      -> http://sourceforge.net/project/showfiles.php?group_id=258398.
+
+(2) Extract the archive by typing
+
+      > tar -xzf gcx_2-1_src.tar.gz
+  
+    in a shell. This will create the following directory structure.
+
+  -> gcx_2-1_src        The root folder.
+    -> bin              This folder is empty and will
+                        - after compilation - contain the binary.
+      -> examples       This folder contains sample queries
+                        for testing purpose.
+        -> sgml         This folder contains sgml sample queries.
+        -> tree         This folder contains tree sample queries.
+        -> xmark        This folder contains xmark sample queries.
+        -> xmp          This folder contains xmp sample queries.
+    -> src              This folder contains all required
+                        sources for compilation.
+
+(3) Step into the src directory by typing
+
+      > cd ./gcx_2-1_src/src
+    
+    in a shell.
+
+(4) Optionally, but not necessarily, you may want to enable or disable one
+    or more special features by uncommenting or adding FLAGS in the
+    Makefile (Makefile.Linux). A complete list of all available
+    compilation FLAGS can be found in chapter 4.
+    
+(5) Now type
+
+      > make -f Makefile.Linux
+
+    to compile the sources. After compilation a binary file named 'gcx'
+    will be created in the bin directory.
+
+(6) You might also consider to add the bin directory to your PATH
+    variable or creating a link to the gcx binary in /usr/bin.
+
+------------------------------
+3.2 COMPILING UNDER WINDOWS
+------------------------------
+In case you are using Windows we recommend the MinGW environment from
+  
+  -> http://www.mingw.org
+  
+to install GCX. You will also need to install - if not already present -
+the following required (additional) tools.
+
+  -> GnuWin32 Make from
+     http://gnuwin32.sourceforge.net/packages/make.htm.
+  -> GnuWin32 Bison from
+     http://gnuwin32.sourceforge.net/packages/bison.htm.
+  -> GnuWin32 Flex from
+     http://gnuwin32.sourceforge.net/packages/flex.htm.
+  -> GnuWin32 Sed from
+     http://gnuwin32.sourceforge.net/packages/sed.htm.
+  
+(1) Download the archive 'gcx_2-1_src.zip' (you can also download the
+    .gz archive 'gcx_2-1_src.tar.gz') from
+    
+      -> http://sourceforge.net/project/showfiles.php?group_id=258398.
+
+(2) Extract the archive 'gcx_2-1_src.zip'.
+    This will create the following directory structure.
+    
+  -> gcx_2-1_src        The root folder.
+    -> bin              This folder is empty and will
+                        - after compilation - contain the binary.
+      -> examples       This folder contains sample queries
+                        for testing purpose.
+        -> sgml         This folder contains sgml sample queries.
+        -> tree         This folder contains tree sample queries.
+        -> xmark        This folder contains xmark sample queries.
+        -> xmp          This folder contains xmp sample queries.
+    -> src              This folder contains all required
+                        sources for compilation.
+    
+(3) Step into the src directory by typing
+    
+      > cd ./gcx_2-1_src/src
+    
+    in a command prompt window.
+    
+(4) Optionally, but not necessarily, you may want to enable or disable one
+    or more special features by uncommenting or adding FLAGS in the
+    Makefile (Makefile.Linux). A complete list of all available
+    compilation FLAGS can be found in chapter 4.
+
+(5) Now type
+    
+      > make -f Makefile.Windows
+    
+    to compile the sources. After compilation a binary file named
+    'gcx.exe' will be created in the bin directory.
+
+(6) You might also consider to add the bin directory to your PATH
+    variable.
+
+
+------------------------------
+4. COMPILING WITH/WITHOUT SPECIAL FEATURES
+------------------------------
+There are several FLAGS that enable or disable one or more (special)
+features. These FLAGS can be found in both Makefiles
+(Makefile.Linux/Makefile.Windows) and have the following effects.
+
+  -> -DROLE_REFCOUNT: Use reference counting instead of role
+                      (multi-)sets; this implementation is faster, but
+                      not suited for debugging purposes, since role IDs
+                      are 'invisible'. It is strongly recommended to
+                      turn this compile option ON.
+
+  -> -DNO_OPTIMIZATIONS: Disable (most of the) optimizations; this
+                         should be used only for debugging purposes
+                         or to get better insights into the engine's
+                         internal processing strategy.
+
+  -> -DREWRITE_VARSTEPS: Rewrite varstep expressions into for-loops.
+                         On the one hand this option causes earlier
+                         signOff statement execution but on the other
+                         hand it (might) interfere with other
+                         optimizations and therefore can slow down
+                         query evaluation.
+
+  -> -DVALIDATION: Enable XML document validation; please note that
+                   only those parts of the XML document are validated
+                   that are kept according to the projection strategy.
+                   For the remaining part only depth is kept track of
+                   (but closing tags are not matched against opening
+                   tags). You should ignore this option if you are sure
+                   that your XML documents are well-formed.
+
+By default, both Makefiles (Makefile.Linux/Makefile.Windows) come with
+
+  -> FLAGS = -DROLE_REFCOUNT.
+
+If you want to change FLAGS for your own needs this must be done before
+compilation of the sources.
+
+To change FLAGS you can either uncomment one of the following lines in
+your Makefile (Makefile.Linux/Makefile.Windows)
+
+  -> # FLAGS = -DROLE_REFCOUNT -DREWRITE_VARSTEPS
+  -> # FLAGS = -DROLE_REFCOUNT -DNO_OPTIMIZATIONS
+  -> # FLAGS = -DROLE_REFCOUNT -DNO_OPTIMIZATIONS -DREWRITE_VARSTEPS
+
+by removing the # before one of these line or just type your own FLAGS
+line, for example
+
+  -> FLAGS = -DROLE_REFCOUNT -DVALIDATION
+
+if you want to use role (multi-)sets instead of reference counting and
+want to ensure that your XML document is well-formed.
+
+After changing FLAGS you may need to clean and rebuild GCX by typing
+
+  > make -f Makefile.Linux clean all
+
+or
+
+  > make -f Makefile.Windows clean all
+
+depending on your operating system.
+
+Warning: Compiling GCX with different FLAGS such as -DVALIDATION for
+XML document well-formed validation or -DNO_OPTIMIZATIONS to disable
+(most of the) optimizations might significantly slow down query
+evaluation and is not a recommended compile option!

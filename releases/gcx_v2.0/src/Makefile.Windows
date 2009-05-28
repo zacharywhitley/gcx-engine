@@ -1,0 +1,64 @@
+############################################
+### Makefile for the GCX project          
+###                                        
+### Author: Michael Schmidt;
+###         Gunnar Jehl (multi-step paths/aggregate functions/optimizations)            
+### - Saarland University Database Group - 
+############################################
+#                                          
+# Hint: Change the CPP flags if you want to disable all optimizations
+#
+# NOTE: DISABLING OPTIMIZATIONS may SIGNIFICANTLY
+#       slow down query evaluation!        
+############################################
+
+# FLAGS = -DNO_OPTIMIZATIONS
+
+CPP =  g++ -Wall -Wno-deprecated $(FLAGS)
+
+
+SOURCES=miscfunctions.cpp main.cpp expression.cpp emptyexpression.cpp constexpression.cpp sequenceexpression.cpp forexpression.cpp varstepexpression.cpp varexpression.cpp nodeconstructexpression.cpp ifexpression.cpp signoffexpression.cpp operandexpression.cpp condexpression.cpp andcondexpression.cpp orcondexpression.cpp notcondexpression.cpp existscondexpression.cpp condoperandexpression.cpp truecondexpression.cpp falsecondexpression.cpp pathstepexpression.cpp aggregatefunctexpression.cpp aggregatefunctsumexpression.cpp aggregatefunctavgexpression.cpp aggregatefunctminexpression.cpp aggregatefunctmaxexpression.cpp aggregatefunctcountexpression.cpp aggregatefunctstddevsampexpression.cpp aggregatefunctstddevpopexpression.cpp aggregatefunctvarsampexpression.cpp aggregatefunctvarpopexpression.cpp aggregatefunctlistexpression.cpp typeenums.cpp prettyprint.cpp environment.cpp buffer.cpp buffernode.cpp tagnode.cpp charnode.cpp bufferiterator.cpp loader.cpp varname.cpp pathenvironment.cpp pathexpression.cpp pathexpressionadornment.cpp streampreprocessor.cpp streamtracker.cpp fsamap.cpp parvarmap.cpp executor.cpp variabletree.cpp variabletreenode.cpp dependencyset.cpp dependencytuple.cpp projectiontree.cpp projectiontreelabel.cpp projectiontreelabels.cpp projectiontreenode.cpp projectiondfa.cpp projectiondfastate.cpp projectiondfatransitions.cpp cmdline.cpp tagmap.cpp intmultiset.cpp buffernodelist.cpp stringhash.cpp role.cpp rolelist.cpp pathsteptagexpression.cpp pathstepstarexpression.cpp pathstepnodeexpression.cpp pathsteptextexpression.cpp error.cpp tokenconfiguration.cpp pathstepattribute.cpp pathstepattributeposition.cpp
+OBJECTS=$(SOURCES:.cpp=.o)
+
+
+all: gcx
+
+############################### binary
+gcx:	$(OBJECTS) query_parser.o query_lexer.o sax.o 
+		$(CPP) $(CFLAGS) $(OBJECTS) query_parser.o query_lexer.o sax.o -o gcx
+
+############################### objects
+%.o: %.cpp
+	$(CPP) $(CFLAGS) -c $<
+
+query_parser.h: query_parser.C
+
+query_parser.C: query_parser.y
+	bison -v -b query_parser -d query_parser.y
+	copy query_parser.tab.c query_parser.C
+	copy query_parser.tab.h query_parser.h
+
+query_parser.o: query_parser.C
+	$(CPP) -c query_parser.C
+
+query_lexer.C: query_lexer.l
+#	flex -d -oquery_lexer.C query_lexer.l  # Flex debugging mode
+	flex -oquery_lexer.C query_lexer.l
+
+query_lexer.o: query_lexer.C query_parser.h
+	$(CPP) -c query_lexer.C
+
+sax.C: sax.l
+	flex sax.l
+	sed "s/yy/yyxml/g" < lex.yy.c > sax.C
+	del lex.yy.c
+
+sax.o: sax.C loader.h
+	$(CPP) -c sax.C
+
+############################### clean 
+clean:
+	del *.o *~ gcx
+	del query_parser.h query_parser.output query_parser.C query_parser.tab.h query_parser.tab.c
+	del query_lexer.C
+	del sax.C

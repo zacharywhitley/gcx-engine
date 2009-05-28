@@ -1,0 +1,131 @@
+############################################
+### Makefile for the GCX project
+###
+### Author: Michael Schmidt;
+###         Gunnar Jehl
+### - Saarland University Database Group -
+###                   and
+### - Freiburg University Database Group -
+############################################                                          
+# HINT: Change the CPP flags if you want disable
+#       all optimizations!
+#
+# NOTE: DISABLING OPTIMIZATIONS or ENABLING VALIDATION
+#       may SIGNIFICANTLY slow down query evaluation!
+############################################
+
+# Possible configuration flags are:
+# -DROLE_REFCOUNT:    Use reference counting instead of role (multi-)sets;
+#                     this implementation is faster, but not suited for
+#                     debugging purposes, since role IDs are 'invisible'.
+#                     It is strongly recommended to turn this compile
+#                     option ON.
+#
+# -DNO_OPTIMIZATIONS: Disable (most of the) optimizations; this should be
+#                     used only for debugging purposes or to get better
+#                     insights into the engine's internal processing strategy.
+#
+# -DREWRITE_VARSTEPS: Rewrite varstep expressions into for-loops. On the one
+#                     hand this option causes earlier signOff statement
+#                     execution but on the other hand it (might) interfere
+#                     with other optimizations and therefore can slow down
+#                     query evaluation.
+#
+# -DVALIDATION:       Enable XML document validation; please note that only
+#                     those parts of the XML document are validated that are
+#                     kept according to the projection strategy. For the
+#                     remaining part only depth is kept track of (but closing
+#                     tags are not matched against opening tags). You should
+#                     ignore this option if you are sure that your XML documents
+#                     are well-formed.
+
+############################################
+# The recommended configuration (performance optimized) is:
+FLAGS = -DROLE_REFCOUNT
+
+############################################
+### Alternative configurations are:
+### Rewriting of varstep expression as an alternative optimization
+### configuration.
+# FLAGS = -DROLE_REFCOUNT -DREWRITE_VARSTEPS
+
+### Disabling (most of the) optimizations to get better insights into
+### the engine's internal processing strategy.
+# FLAGS = -DROLE_REFCOUNT -DNO_OPTIMIZATIONS
+
+### Disabling (most of the) optimizations and enable rewriting of varstep
+### expressions to get better insights into the engine's internal processing
+### strategy.
+# FLAGS = -DROLE_REFCOUNT -DNO_OPTIMIZATIONS -DREWRITE_VARSTEPS
+
+CPP =  g++ -Wall -O3 $(FLAGS)
+
+############################################
+# list of source files
+SOURCES=streammanager.cpp outputstream.cpp outputstreammanip.cpp fileoutputstream.cpp nulloutputstream.cpp socketoutputstream.cpp stdoutoutputstream.cpp inputstream.cpp fileinputstream.cpp nullinputstream.cpp socketinputstream.cpp stdininputstream.cpp exception.cpp notimplementedexception.cpp invalidargumentexception.cpp iostreamexception.cpp parseexception.cpp runtimeexception.cpp invalidcastexception.cpp miscfunctions.cpp main.cpp expression.cpp docexpression.cpp commentexpression.cpp roundingexpression.cpp functabsexpression.cpp functceilingexpression.cpp functcoverexpression.cpp functfloorexpression.cpp functroundexpression.cpp functroundhalftoevenexpression.cpp functtruncateexpression.cpp emptyexpression.cpp constexpression.cpp stringconstexpression.cpp numericconstexpression.cpp sequenceexpression.cpp forexpression.cpp varstepexpression.cpp varexpression.cpp nodeconstructexpression.cpp ifexpression.cpp whereexpression.cpp signoffexpression.cpp operandexpression.cpp condexpression.cpp andcondexpression.cpp orcondexpression.cpp notcondexpression.cpp existscondexpression.cpp emptycondexpression.cpp varstepcondexpression.cpp condoperandexpression.cpp truecondexpression.cpp falsecondexpression.cpp pathstepexpression.cpp aggregatefunctexpression.cpp aggregatefunctsumexpression.cpp aggregatefunctavgexpression.cpp aggregatefunctminexpression.cpp aggregatefunctmaxexpression.cpp aggregatefunctcountexpression.cpp aggregatefunctstddevsampexpression.cpp aggregatefunctstddevpopexpression.cpp aggregatefunctvarsampexpression.cpp aggregatefunctvarpopexpression.cpp aggregatefunctmedianexpression.cpp typeenums.cpp environment.cpp buffer.cpp buffernode.cpp tagnode.cpp charnode.cpp bufferiterator.cpp loader.cpp varname.cpp pathenvironment.cpp pathexpression.cpp pathexpressionadornment.cpp streampreprocessor.cpp streamtracker.cpp fsamap.cpp parvarmap.cpp executor.cpp variabletree.cpp variabletreenode.cpp dependencyset.cpp dependencytuple.cpp passiveprojectiontree.cpp passiveprojectiontreenode.cpp passiveprojectiontreeconfiguration.cpp projectiontree.cpp projectiontreelabel.cpp projectiontreelabels.cpp projectiontreenode.cpp projectiondfa.cpp projectiondfastate.cpp projectiondfatransitions.cpp cmdline.cpp tagmap.cpp intmultiset.cpp buffernodelist.cpp stringhash.cpp role.cpp rolelist.cpp pathsteptagexpression.cpp pathstepstarexpression.cpp pathstepnodeexpression.cpp pathsteptextexpression.cpp tokenconfiguration.cpp pathstepattribute.cpp pathstepattributeposition.cpp value.cpp
+
+############################################
+# list of generated object files
+OBJECTS=$(SOURCES:.cpp=.o)
+
+############################################
+# all
+all: gcx
+
+############################################
+# compiling strings into executable
+preparestringincl: preparestringincl.o
+	$(CPP) preparestringincl.o -o preparestringincl
+
+preparestringincl.o: util/preparestringincl.cpp
+	$(CPP) $(CFLAGS) -c util/preparestringincl.cpp
+
+LICENSE.txt.quot: LICENSE.txt preparestringincl
+	./preparestringincl LICENSE.txt LICENSE.txt.quot
+
+FRAGMENT.txt.quot: FRAGMENT.txt preparestringincl
+	./preparestringincl FRAGMENT.txt FRAGMENT.txt.quot
+
+############################################
+# binary
+gcx: $(OBJECTS) query_parser.o query_lexer.o sax.o
+	$(CPP) $(CFLAGS) $(OBJECTS) query_parser.o query_lexer.o sax.o -o ../bin/gcx
+
+############################################
+# objects
+%.o: %.cpp FRAGMENT.txt.quot LICENSE.txt.quot
+	$(CPP) $(CFLAGS) -c $<
+
+query_parser.h: query_parser.C
+
+query_parser.C: query_parser.y
+	bison -v -b query_parser -d query_parser.y
+	copy query_parser.tab.c query_parser.C
+	copy query_parser.tab.h query_parser.h
+
+query_parser.o: query_parser.C
+	$(CPP) -c query_parser.C
+
+query_lexer.C: query_lexer.l
+#	flex -d -T -oquery_lexer.C query_lexer.l # Flex debugging mode
+	flex -oquery_lexer.C query_lexer.l
+
+query_lexer.o: query_lexer.C query_parser.h
+	$(CPP) -c query_lexer.C
+
+sax.C: sax.l
+	flex sax.l
+	sed "s/yy/yyxml/g" < lex.yy.c > sax.C
+	del lex.yy.c
+
+sax.o: sax.C loader.h
+	$(CPP) -c sax.C
+
+############################################
+# clean
+clean:
+	del *.o *~ gcx
+	del query_parser.h query_parser.output query_parser.C query_parser.tab.h query_parser.tab.c
+	del query_lexer.C
+	del sax.C
+	del *.quot

@@ -1,0 +1,140 @@
+************************************************************
+***************** THE GCX XQUERY ENGINE ********************
+************************************************************
+
+     I N S T A L L A T I O N   I N S T R U C T I O N S
+
+
+TABLE OF CONTENTS
+=================
+1. REQUIREMENTS
+2. USING THE BINARIES
+3. COMPILING THE SOURCES
+3.1 COMPILATION UNDER LINUX
+3.2 COMPILATION UNDER WINDOWS 
+4. COMPILING WITH STATISTICS SUPPORT
+
+
+1. REQUIREMENTS
+---------------
+The easiest way to get started with GCX is to use the 
+precompiled binaries at the download page. Currently, 
+binaries for Linux und Windows (i386 architecture) are 
+available.
+
+If your system is not supported, you need to compile the
+GCX engine from sources. The following tools are required 
+for manual compilation.
+
+- GNU Make  (installation tested with version 3.81beta4)
+- GNU Bison (installation tested with version 2.1)
+- GNU Flex  (installation tested with version 2.5.31)
+- GNU Sed   (installation tested with version 4.1.4)
+
+We provide Makefiles for both Windows and Linux. 
+
+
+2. USING THE BINARIES
+---------------------
+If you choose to download the binaries, no installation will 
+be necessary. Simply download the binary bundle that corresponds
+to your operating system (either 'gcx_1-0beta_bin_win32.zip' or
+'gcx_1-0beta_bin_linux.tar.gz' and unzip the file. This will
+create the directory structure
+
+-> gcx_1-0beta_bin_OS
+    -> bin
+    -> examples
+        -> dblp
+        -> nasa
+        -> xmark
+        -> xmp
+
+
+The executable (either 'gcx' or 'gcx.exe', depending on whether
+you use the Linux or the Windows version) will be available in
+the 'bin' directory. Simply open a shell, change into the 'bin'
+directory, and run the executable.
+
+
+3. COMPILING THE SOURCES
+------------------------
+3.1 COMPILATION UNDER LINUX
+---------------------------
+(a) Download the archive 'gcx_1-0beta_src.tar.gz' (you can also
+download the .zip version of the archive) from
+
+        http://www.infosys.uni-sb.de/projects/streams/gcx
+
+
+(b) Unpack the archive by typing
+
+> tar -xzf gcx_1-0beta_src.tar.gz
+
+This will create the directory structure
+
+-> gcx_1-0beta_bin_OS
+    -> bin
+    -> examples
+        -> dblp
+        -> nasa
+        -> xmark
+        -> xmp
+	-> src
+
+
+(c) Enter the 'src' directory by typing
+
+> cd ./gcx_1-0beta_src/src
+
+
+(d) Simply type
+
+> make -f Makefile.Linux
+
+to compile the sources. A binary file 'gcx' will be created in
+the 'bin' directory.
+
+
+(e) You might consider adding the 'bin' directory to your PATH
+variable or creating a link in '/usr/bin'.
+
+
+3.2 COMPILATION UNDER WINDOWS
+-----------------------------
+We propose to use the MinGW environment (http://www.mingw.org/)
+to install GCX under Windows. You will additionally need to
+install the following tools:
+
+- GnuWin32 Make (http://gnuwin32.sourceforge.net/packages/make.htm)
+- GnuWin32 Bison (http://gnuwin32.sourceforge.net/packages/bison.htm)
+- GnuWin32 Flex (http://gnuwin32.sourceforge.net/packages/flex.htm)
+- GnuWin32 Sed (http://gnuwin32.sourceforge.net/packages/sed.htm)
+
+Unzip the archive and follow the installation instructions given in
+Section 3.1. When building the sources (step (d)), type
+
+> make -f Makefile.Windows
+
+instead.
+
+
+4. COMPILING WITH STATISTICS SUPPORT
+------------------------------------
+To compile a version that enables for debug printing buffer
+statistics, simply uncomment the line
+
+# FLAGS = -DGENEREATE_STATS
+
+in the Makefile (either 'Makefile.Linux' or 'Makefile.Windows') in the
+'src' directory and type 
+
+> make -f <Makefile> clean all
+
+to rebuild your application, where <Makefile> is either 'Makefile.Linux'
+or 'Makefile.Windows'.
+
+!!! Warning !!!
+Compiling the application with support for statistics might
+significantly slow down query evaluation and is not a recommended
+compile option!

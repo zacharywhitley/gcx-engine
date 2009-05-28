@@ -1,0 +1,50 @@
+Supported XQuery Fragment XQ:
+-----------------------------
+          XQuery ::= (CommentExpr)? XMLExpr
+     CommentExpr ::= (: [CommentExpr]* String [CommentExpr]* :)
+         XMLExpr ::= <QName> NestedXMLExpr </QName>
+                    | <QName></QName> | <QName/>
+   NestedXMLExpr ::= {QExpr} | String | XMLExpr | NestedXMLExpr NestedXMLExpr
+           QExpr ::= ReturnQExpr | QExpr, QExpr
+     ReturnQExpr ::= QExprSingle | (QExpr) | ()
+     QExprSingle ::= \"String\" | Numeric | FWRExpr | IfExpr | VarExpr
+                    | AggregateFunct | RoundingFunct | NestedXMLExpr
+         FWRExpr ::= ForClause [where Condition]? return ReturnQExpr
+       ForClause ::= for $VarName in VarExpr [, $VarName in VarExpr]*
+          IfExpr ::= if (Condition) then ReturnQExpr else ReturnQExpr
+       Condition ::= VarExpr | fn:true() | fn:false() | fn:exists(VarExpr)
+                    | fn:empty(VarExpr) | fn:not(Condition)
+                    | (Condition) | Condition and Condition
+                    | Condition or Condition | Operand RelOp Operand
+         Operand ::= VarExpr | AggregateFunct | RoundingFunct
+                    | \"String\" | Numeric
+           RelOp ::= < | <= | >= | > | = | !=
+  AggregateFunct ::= fn:sum(VarExpr) | fn:avg(VarExpr)
+                    | fn:min(VarExpr) | fn:max(VarExpr)
+                    | fn:count(VarExpr) | fn:stddev_samp(VarExpr)
+                    | fn:stddev_pop(VarExpr) | fn:var_samp(VarExpr)
+                    | fn:var_pop(VarExpr) | fn:median(VarExpr)
+   RoundingFunct ::= fn:abs(AggregateFunct) | fn:ceiling(AggregateFunct)
+                    | fn:cover(AggregateFunct) | fn:floor(AggregateFunct)
+                    | fn:round(AggregateFunct) | fn:truncate(AggregateFunct)
+                    | fn:round-half-to-even(AggregateFunct)
+         VarExpr ::= $VarName | VarAxisExpr
+     VarAxisExpr ::= $VarName PathExpr | PathExpr | DocPathExpr
+     DocPathExpr ::= fn:doc(\"FileName\") | fn:doc(\"FileName\") / PathStepExpr
+        PathExpr ::= (/) | / | PathStepExpr
+    PathStepExpr ::= Axis NodeTest | Axis NodeTest / PathStepExpr
+            Axis ::= / | /child:: | // | /descendant::
+        NodeTest ::= node() | text() | * | QName
+
+           QName ::= tagname
+          String ::= string constant
+         Numeric ::= numeric constant
+         VarName ::= variable name
+        FileName ::= file name
+
+Note: The fn:doc() construct (cf. rule DocPathExpr) fixes the input document;
+all absolute paths in the query will be bound to this document and will
+override xml input stream specification from command-line (such as --xml).
+When fn:doc() is used multiple times, GCX expects all occurrences to contain
+the same document, i.e. input from multiples documents at a time is currently
+not supported.

@@ -1,0 +1,83 @@
+\section{Supported Fragment of XQuery 1.0}
+Currently GCX supports composition-free XQuery \cite{bibitem:koch12005}, i.e.~without let-clauses, and allows to use the following syntactic constructs (whereas node comparisons in conditions are always string value comparisons).
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \item[\textbullet] \emph{comment} expressions \enquote{above} a query (\emph{not} supported \emph{inside} a query)
+  \item[\textbullet] arbitrary (well-formed) \emph{XML elements} (with or without \emph{PCDATA content})
+  \item[\textbullet] \emph{string constants} in output or conditions
+  \item[\textbullet] \emph{numeric constants} in output or conditions
+  \item[\textbullet] \emph{aggregate function} expressions in output or conditions supporting
+  \begin{itemize}
+    \setlength{\itemsep}{0pt}
+    \item[\textbullet] \textbf{standard functions}: \emph{fn:sum}, \emph{fn:avg}, \emph{fn:min}, \emph{fn:max} and \emph{fn:count}
+    \item[\textbullet] \textbf{non-standard functions}: \emph{fn:stddev\_samp}, \emph{fn:stddev\_pop}, \emph{fn:var\_samp}, \emph{fn:var\_pop} and \emph{fn:median}
+  \end{itemize}
+  \item[\textbullet] \emph{rounding function} expressions in output or conditions supporting
+  \begin{itemize}
+    \setlength{\itemsep}{0pt}
+    \item[\textbullet] \textbf{standard functions}: \emph{fn:ceiling}, \emph{fn:floor}, \emph{fn:round} and \\ \emph{fn:round-half-to-even}
+    \item[\textbullet] \textbf{non-standard functions}: \emph{fn:abs}, \emph{fn:cover} and \emph{fn:truncate}
+  \end{itemize}
+  \item[\textbullet] arbitrarily deep-nested \emph{sequences of expressions}
+  \item[\textbullet] nested \emph{FWR} (for-where-return) expressions
+  \item[\textbullet] \emph{if-then-else} expressions
+  \item[\textbullet] conditions support
+  \begin{itemize}
+    \setlength{\itemsep}{0pt}
+    \item[\textbullet] \textbf{conjunctions}: \emph{and}, \emph{or}
+    \item[\textbullet] \textbf{functions}: \emph{fn:not}, \emph{fn:exists}, \emph{fn:empty}, \emph{fn:true}, \emph{fn:false}, \emph{all aggregate function expressions} and \emph{all rounding function expressions}
+    \item[\textbullet] \textbf{relational operators}: $<$, $\leq$, $=$, $\geq$, $>$, $\neq$
+  \end{itemize}
+  \item[\textbullet] \emph{variables} defined by FWR expressions (no \emph{let-clause} support) in output or conditions (with or without \emph{multi-step path} expressions)
+  \item[\textbullet] \emph{multi-step path} expressions (arbitrarily length) with (optional) \emph{fn:doc} function expression for specifying absolute paths using
+  \begin{itemize}
+    \setlength{\itemsep}{0pt}
+    \item[\textbullet] \textbf{axis}: / (\emph{child}::) or // (\emph{descendant}::)
+    \item[\textbullet] \textbf{node tests}: node(), text(), wildcard ($\ast$) or a tagname
+  \end{itemize}
+\end{itemize}
+
+\noindent The explicit grammar of the supported XQuery 1.0 fragment is provided in the following \autoref{figure_(supported_fragment_of_xquery):supported_fragment_in_gcx_of_xquery}.
+
+\begin{figure}[ht]
+  \centering \fontsize{9}{12}\selectfont
+  \begin{align*}
+    \mtext{XQuery} ::= & \mspaceb \text{\textbf{(}\memph{CommentExpr}\textbf{)}}? \mspaceb \mtext{XMLExpr} \\
+    \mtext{CommentExpr} ::= & \mspaceb \text{\textbf{(:} \textbf{[}\memph{CommentExpr}\textbf{]*}} \mspaceb \mtext{String} \mspaceb \text{\textbf{[}\memph{CommentExpr}\textbf{]*} \textbf{:)}} \\
+    \mtext{XMLExpr} ::= & \mspaceb \mopentag{\mtext{QName}} \mspaceb \mtext{NestedXMLExpr} \mspaceb \mclosetag{\mtext{QName}} \\ \mspaceb & | \mspaceb \mopentag{\mtext{QName}} \mclosetag{\mtext{QName}} \mspaceb | \mspaceb \memptytag{\mtext{QName}} \\
+    \mtext{NestedXMLExpr} ::= & \mspaceb \text{\textbf{\{}\memph{QExpr}\textbf{\}}} \mspaceb | \mspaceb \mtext{String} \mspaceb | \mspaceb \mtext{XMLExpr} \mspaceb | \mspaceb \mtext{NestedXMLExpr} \mspaceb \mtext{NestedXMLExpr} \\
+    \mtext{QExpr} ::= & \mspaceb \mtext{ReturnQExpr} \mspaceb | \mspaceb \mtext{QExpr,}\mtext{QExpr} \\
+    \mtext{ReturnQExpr} ::= & \mspaceb \mtext{QExprSingle} \mspaceb | \mspaceb \text{\textbf{(}\memph{QExpr}\textbf{)}} \mspaceb | \mspaceb \text{\textbf{()}} \\
+    \mtext{QExprSingle} ::= & \mspaceb \text{``\memph{String}''} \mspaceb | \mspaceb \mtext{Numeric} \mspaceb | \mspaceb \mtext{FWRExpr} \mspaceb | \mspaceb \mtext{IfExpr} \mspaceb | \mspaceb \mtext{VarExpr} \\
+    \mspaceb & | \mspaceb \mtext{AggregateFunct} \mspaceb | \mspaceb \mtext{RoundingFunct} \mspaceb | \mspaceb \mtext{NestedXMLExpr} \\
+    \mtext{FWRExpr} ::= & \mspaceb \mtext{ForClause} \mspaceb [\text{\textbf{where}} \mspaceb \mtext{Condition}]? \mspaceb \text{\textbf{return}} \mspaceb \mtext{ReturnQExpr} \\
+    \mtext{ForClause} ::= & \mspaceb \text{\textbf{for}} \mspaceb \text{\textbf{\$}\memph{VarName}} \mspaceb \text{\textbf{in}} \mspaceb \mtext{VarExpr} \mspaceb [, \mspaceb \text{\textbf{\$}\memph{VarName}} \mspaceb \text{\textbf{in}} \mspaceb \mtext{VarExpr}]^\text{\textbf{*}} \\
+    \mtext{IfExpr} ::= & \mspaceb \text{\textbf{if}} \mspaceb \text{\textbf{(}\memph{Condition}\textbf{)}} \mspaceb \text{\textbf{then}} \mspaceb \mtext{ReturnQExpr} \mspaceb \text{\textbf{else}} \mspaceb \mtext{ReturnQExpr} \\
+    \mtext{Condition} ::= & \mspaceb \mtext{VarExpr} \mspaceb | \mspaceb \text{\textbf{fn:true()}} \mspaceb | \mspaceb \text{\textbf{fn:false()}} \mspaceb | \mspaceb \text{\textbf{fn:exists(}\memph{VarExpr}\textbf{)}} \\
+    \mspaceb & | \mspaceb \text{\textbf{fn:empty(}\memph{VarExpr}\textbf{)}} \mspaceb | \mspaceb \text{\textbf{fn:not}}\text{\textbf{(}\memph{Condition}\textbf{)}} \\ \mspaceb & | \mspaceb \text{\textbf{(}\memph{Condition}\textbf{)}} \mspaceb | \mspaceb \mtext{Condition} \mspaceb \text{\textbf{and}} \mspaceb \mtext{Condition} \\ \mspaceb & | \mspaceb \mtext{Condition} \mspaceb \text{\textbf{or}} \mspaceb \mtext{Condition} \mspaceb | \mspaceb \mtext{Operand} \mspaceb \mtext{RelOp} \mspaceb \mtext{Operand} \\
+    \mtext{Operand} ::= & \mspaceb \mtext{VarExpr} \mspaceb | \mspaceb \mtext{AggregateFunct} \mspaceb | \mspaceb \mtext{RoundingFunct} \mspaceb | \mspaceb \text{``\memph{String}''} \mspaceb | \mspaceb \mtext{Numeric} \\
+    \mtext{RelOp} ::= & \mspaceb < \mspaceb | \mspaceb <= \mspaceb | \mspaceb >= \mspaceb | \mspaceb > \mspaceb | \mspaceb = \mspaceb | \mspaceb \text{!=} \\
+    \mtext{AggregateFunct} ::= & \mspaceb \text{\textbf{fn:sum(}\memph{VarExpr}\textbf{)}} \mspaceb | \mspaceb \text{\textbf{fn:avg(}\memph{VarExpr}\textbf{)}} \\ \mspaceb & | \mspaceb \text{\textbf{fn:min(}\memph{VarExpr}\textbf{)}} \mspaceb | \mspaceb \text{\textbf{fn:max(}\memph{VarExpr}\textbf{)}} \\ \mspaceb & | \mspaceb \text{\textbf{fn:count(}\memph{VarExpr}\textbf{)}} \mspaceb | \mspaceb \text{\textbf{fn:stddev\_samp(}\memph{VarExpr}\textbf{)}} \\ \mspaceb & | \mspaceb \text{\textbf{fn:stddev\_pop(}\memph{VarExpr}\textbf{)}} \mspaceb | \mspaceb \text{\textbf{fn:var\_samp(}\memph{VarExpr}\textbf{)}} \\ \mspaceb & | \mspaceb \text{\textbf{fn:var\_pop(}\memph{VarExpr}\textbf{)}} \mspaceb | \mspaceb \text{\textbf{fn:median(}\memph{VarExpr}\textbf{)}} \\
+    \mtext{RoundingFunct} ::= & \mspaceb \text{\textbf{fn:abs(}\memph{AggregateFunct}\textbf{)}} \mspaceb | \mspaceb \text{\textbf{fn:ceiling(}\memph{AggregateFunct}\textbf{)}} \\ \mspaceb & | \mspaceb \text{\textbf{fn:cover(}\memph{AggregateFunct}\textbf{)}} \mspaceb | \mspaceb \text{\textbf{fn:floor(}\memph{AggregateFunct}\textbf{)}} \\ \mspaceb & | \mspaceb \text{\textbf{fn:round(}\memph{AggregateFunct}\textbf{)}} \mspaceb | \mspaceb \text{\textbf{fn:truncate(}\memph{AggregateFunct}\textbf{)}} \\ \mspaceb & | \mspaceb \text{\textbf{fn:round-half-to-even(}\memph{AggregateFunct}\textbf{)}} \\
+    \mtext{VarExpr} ::= & \mspaceb \text{\textbf{\$}\memph{VarName}} \mspaceb | \mspaceb \mtext{VarAxisExpr} \\
+    \mtext{VarAxisExpr} ::= & \mspaceb \text{\textbf{\$}\memph{VarName}} \mspaceb \mtext{PathExpr} \mspaceb | \mspaceb \mtext{PathExpr} \mspaceb | \mspaceb DocPathExpr \\
+    \mtext{DocPathExpr} ::= & \mspaceb \text{\textbf{fn:doc(}``\memph{FileName}''\textbf{)}} \mspaceb | \mspaceb \text{\textbf{fn:doc(}``\memph{FileName}''\textbf{)} \textbf{/} \mtext{PathStepExpr}} \\
+    \mtext{PathExpr} ::= & \mspaceb \text{\textbf{(/)}} \mspaceb | \mspaceb \text{\textbf{/}} \mspaceb | \mspaceb \mtext{PathStepExpr} \\
+    \mtext{PathStepExpr} ::= & \mspaceb \mtext{Axis} \mspaceb \mtext{NodeTest} \mspaceb | \mspaceb \mtext{Axis} \mspaceb \mtext{NodeTest} \mspaceb \text{\textbf{/}} \mspaceb \mtext{PathStepExpr} \\
+    \mtext{Axis} ::= & \mspaceb \text{\textbf{/}} \mspaceb | \mspaceb \text{\textbf{/child::}} \mspaceb | \mspaceb \text{\textbf{//}} \mspaceb | \mspaceb \text{\textbf{/descendant::}} \\
+    \mtext{NodeTest} ::= & \mspaceb \text{\textbf{node()}} \mspaceb | \mspaceb \text{\textbf{text()}} \mspaceb | \mspaceb \text{\textbf{*}} \mspaceb | \mspaceb \mtext{QName} \\
+    \cline{1-3}
+    \mtext{QName} := & \mspaceb \text{tagname} \\
+    \mtext{String} := & \mspaceb \text{string constant} \\
+    \mtext{Numeric} := & \mspaceb \text{numeric constant} \\
+    \mtext{VarName} := & \mspaceb \text{variable name (e.g. $\$x$, $\$y$, \ldots)} \\
+    \mtext{FileName} := & \mspaceb \text{file name} \\
+  \end{align*}
+  \caption[Supported Fragment in GCX of XQuery 1.0]{Supported Fragment in GCX of XQuery 1.0}
+  \label{figure_(supported_fragment_of_xquery):supported_fragment_in_gcx_of_xquery}
+\end{figure}
+
+\clearpage
+
+\noindent \textbf{Note}: \emph{The fn:doc() construct (cf. rule DocPathExpr) fixes the input document;
+all absolute paths in the query will be bound to this document and will override XML input stream specification from command-line (such as {-}{-}xml). When fn:doc() is used multiple times, GCX expects all occurrences to contain the same document, i.e. input from multiples documents at a time is currently not supported.} 

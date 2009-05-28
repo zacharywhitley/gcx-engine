@@ -1,0 +1,129 @@
+\section{Command-Line Arguments}
+\label{section:command-line_arguments}
+Usage:
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \item[] \texttt{gcx [STD EVAL MODE]} or
+  \item[] \texttt{gcx [EXT EVAL MODE]} or
+  \item[] \texttt{gcx [INFO MODE]}
+\end{itemize}
+
+\noindent To do a quick start, which corresponds to usage \texttt{gcx [STD EVAL MODE]}, you can run a query from file \enquote{\emph{query.xq}} against XML document \enquote{\emph{doc.xml}} by typing
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \item[] \texttt{> ./gcx {-}{-}query query.xq {-}{-}xml doc.xml} (using Linux/Mac OS)
+  \item[] \texttt{> gcx.exe {-}{-}query query.xq {-}{-}xml doc.xml} (using Windows)
+\end{itemize}
+
+\noindent in a shell (Linux/Mac OS) or a command prompt window (Windows).
+
+\subsection{Standard Evaluation Mode (usage: \texttt{gcx [STD EVAL MODE]})}
+The \emph{standard evaluation mode} provides the GCX engine with standard I(nput)/ O(utput) stream options. This means that the (input) query and also the (input) XML document each comes from their own file. The usage of the \emph{standard evaluation mode} is
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \item[] \texttt{gcx [STD EVAL MODE]}
+\end{itemize}
+
+\noindent with
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \item[] \texttt{[STD EVAL MODE] ::= {-}{-}query <query\_file> [{-}{-}xml <xml\_file>]\footnote{{-}{-}xml <xml\_file> required if document is not given in query through \emph{fn:doc}()} [OPTION]?}
+\end{itemize}
+
+\noindent whereas the \texttt{{-}{-}query} argument fixes the (input) query file and the \texttt{{-}{-}xml} argument fixes the (input) XML document. The optional \texttt{[OPTION]} part is described in \autoref{subsection_(command_line_arguments):debug_options}.
+
+\subsection{Extended Evaluation Mode (usage: \texttt{gcx [EXT EVAL MODE]})}
+The \emph{extended evaluation mode} provides the GCX engine with extended I(nput)/ O(utput) stream options. This means that it is possible that the (input) query and also the (input) XML document comes from different sources. These options also allow to redirect the evaluation result and/or the debug output.
+
+\clearpage
+
+\noindent The usage of the \emph{extended evaluation mode} is
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \item[] \texttt{gcx [EXT EVAL MODE]}
+\end{itemize}
+
+\noindent with
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \item[] \texttt{[EXT EVAL MODE] ::= [STREAM SPEC]+ [OPTION]?}
+\end{itemize}
+
+\noindent With \texttt{[STREAM SPEC]} either
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \item[] \texttt{{-}{-}iqstream [INPUT TYPE] [PARAM]?}: input stream type of query
+  \item[] \texttt{{-}{-}ixstream [INPUT TYPE] [PARAM]?}: input stream type of xml
+  \item[] \texttt{{-}{-}oestream [OUTPUT TYPE] [PARAM]?}: output stream type of query result
+  \item[] \texttt{{-}{-}odstream [OUTPUT TYPE] [PARAM]?}: output stream type of debug output
+\end{itemize}
+
+\noindent whereas \texttt{[INPUT TYPE]} is either
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \item[] \texttt{file}: file input (DEFAULT)
+  \begin{itemize}
+    \setlength{\itemsep}{0pt}
+    \item[$\rightarrow$] when used with {-}{-}iqstream provide parameter {-}{-}query <query\_file>
+    \item[$\rightarrow$] when used with {-}{-}ixstream provide parameter {-}{-}xml <xml\_file>\footnote{required if document is not given in query through \emph{fn:doc}()}
+  \end{itemize}
+  \item[] \texttt{null}: no input (support only for {-}{-}ixstream for debugging purposes)
+  \item[] \texttt{stdin}: standard input (either for query or for xml document)
+\end{itemize}
+
+\noindent and whereas \texttt{[OUTPUT TYPE]} is either
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \item[] \texttt{file}: file output
+  \begin{itemize}
+    \setlength{\itemsep}{0pt}
+    \item[$\rightarrow$] when used with {-}{-}oestream provide parameter {-}{-}eout <eval\_output\_file>
+    \item[$\rightarrow$] when used with {-}{-}odstream provide parameter {-}{-}dout <debug\_output\_file>
+  \end{itemize}
+  \item[] \texttt{null}: no output
+  \item[] \texttt{stdout}: standard output (DEFAULT)
+\end{itemize}
+
+\noindent \textbf{Note}: \emph{If you want to enter/paste the XML document directly into the shell or into the command prompt window you need to signal end-of-file (EOF) of the XML document by typing \texttt{2 $\times$ Strg + D} (if using Linux/Mac OS) or \texttt{Strg + Z} (if using Windows).} \\
+
+\noindent In summary, the arguments \texttt{{-}{-}iqstream} (\emph{input query stream}), \texttt{{-}{-}ixstream} (\emph{input XML stream}), \texttt{{-}{-}oestream} (\emph{output evaluation stream}) and \texttt{{-}{-}odstream} (\emph{output debug stream}) specify by their option the type of stream you want to use. The additional~-- if needed~-- arguments \texttt{{-}{-}query} (\emph{query input stream information}), \texttt{{-}{-}xml} (\emph{XML input stream information}), \texttt{{-}{-}eout} (\emph{evaluation output stream information}) and \texttt{{-}{-}dout} (\emph{debug output stream information}) specify by their option further stream information, such as the file where output is written to or the file from which input comes. The optional \texttt{[OPTION]} part is described in \autoref{subsection_(command_line_arguments):debug_options}. The following examples show some possible usage.
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \item[] \texttt{> gcx {-}{-}query query.xq {-}{-}xml doc.xml}
+  \begin{itemize}
+    \setlength{\itemsep}{0pt}
+    \item[$\rightarrow$] query input from file \enquote{query.xq} and xml input from file \enquote{doc.xml}
+    \item[$\rightarrow$] query result output to stdout
+  \end{itemize}
+  \item[] \texttt{> gcx {-}{-}iqstream stdin {-}{-}xml doc.xml {-}{-}odstream file {-}{-}dout debug.out {-}{-}debug}
+    \begin{itemize}
+    \setlength{\itemsep}{0pt}
+    \item[$\rightarrow$] query input from stdin and xml input from file \enquote{doc.xml}
+    \item[$\rightarrow$] debug output to file \enquote{debug.out} and query result output to stdout
+  \end{itemize}
+  \item[] \texttt{> gcx {-}{-}query query.xq {-}{-}xml doc.xml {-}{-}oestream file {-}{-}eout result.xml {-}{-}odstream null {-}{-}debug}
+    \begin{itemize}
+    \setlength{\itemsep}{0pt}
+    \item[$\rightarrow$] query input from file \enquote{query.xq} and xml input from file \enquote{doc.xml}
+    \item[$\rightarrow$] discard debug output and query result output to file \enquote{result.xml}
+  \end{itemize}
+\end{itemize}
+
+\subsection{Information Mode (usage: \texttt{gcx [INFO MODE]})}
+The \emph{information mode} provides additional information about the GCX engine. For this purpose the following command-line arguments are available.
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \item[] \texttt{{-}{-}fragmentxq}: Prints supported XQuery fragment (XQ) (see also \autoref{figure_(supported_fragment_of_xquery):supported_fragment_in_gcx_of_xquery}).
+  \item[] \texttt{{-}{-}version}: Prints version number and compile flags used during compilation.
+  \item[] \texttt{{-}{-}about}: Prints about (license and author) information.
+  \item[] \texttt{{-}{-}help}: Prints general usage information.
+\end{itemize}
+
+\subsection{Debug Options}
+\label{subsection_(command_line_arguments):debug_options}
+The following command-line arguments for debugging purpose are available.
+\begin{itemize}
+  \item[] \texttt{{-}{-}debug}: Prints detailed debug information.
+  \item[] \texttt{{-}{-}streamdebug}: Prints the projected XML stream together with additional debug information (in particular with associated roles). Stream preprojection as a stand-alone tool is currently not implemented in a memory efficient way, i.e. in this mode the whole stream is loaded into the buffer before it is output.
+  \item[] \texttt{{-}{-}streamnodebug}: Prints the projected XML stream without additional debug information. Stream preprojection as a stand-alone tool is currently not implemented in a memory efficient way, i.e. in this mode the whole stream is loaded into the buffer before it is output.
+\end{itemize} 

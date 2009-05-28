@@ -1,0 +1,221 @@
+\documentclass[DIV=12,
+               BCOR=12mm,
+               english,
+               twocolumn=false,
+               twoside=false,
+               fontsize=12pt,
+               paper=a4,
+               pagesize,
+               abstract=true,
+               titlepage=true,
+               liststotoc,
+               bibtotoc,
+               idxtotoc,
+               headsepline,
+               footsepline=false,
+               plainfootsepline,
+               plainheadsepline,
+               normalheadings,
+               tocindent,
+               listsleft,
+               pointlessnumbers,
+               tablecaptionbelow,
+               automark,
+               openbib,
+               draft=false,
+               version=last]{scrartcl}
+\usepackage{color}
+\usepackage[ngerman, english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[iso, ngerman, english, cleanlook]{isodate}
+\usepackage[strict, babel, german=quotes, english=american]{csquotes}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{units}
+\usepackage{dirtree}
+\usepackage[fixlanguage, noisbn, noissn]{babelbib}
+\usepackage[automark]{scrpage2}
+\usepackage[pagebackref=true]{hyperref}
+
+% ###################################################################################################
+% INFORMATION
+% ###################################################################################################
+\newcommand{\mytitlehead}{\gcxshortv}
+\newcommand{\mysubject}{\gcxlongv}
+\newcommand{\mytitle}{G(arbage) C(collected) X(Query) Engine\\ ~-- User Manual --~}
+\newcommand{\mysubtitle}{~-- User Manual~--}
+
+\newcommand{\myfirstauthor}{Michael Schmidt}
+\newcommand{\myfirstauthoremail}{mschmidt@informatik.uni-freiburg.de}
+\newcommand{\myfirstauthoremailurl}{mailto:mschmidt@informatik.uni-freiburg.de?subject=GCX User Manual}
+\newcommand{\mysecondauthor}{Gunnar Jehl}
+\newcommand{\mysecondauthoremail}{jehl@informatik.uni-freiburg.de}
+\newcommand{\mysecondauthoremailurl}{mailto:jehl@informatik.uni-freiburg.de?subject=GCX User Manual}
+\newcommand{\myauthor}{\myfirstauthor \ and \mysecondauthor}
+
+\newcommand{\mydate}{May~2009}
+
+\newcommand{\myfirstpublisher}{Saarland University Database Group}
+\newcommand{\mysecondpublisher}{Freiburg University Database Group}
+\newcommand{\mypublisher}{\myfirstpublisher \\ \mysecondpublisher}
+
+\newcommand{\myhyperrefkeywords}{\myfirstpublisher, \mysecondpublisher, \myfirstauthor, \mysecondauthor, \mytitle, \mysubtitle}
+
+\titlehead{\mytitlehead}
+\subject{\mysubject}
+\title{\mytitle}
+%\subtitle{\mysubtitle}
+\author{\myfirstauthor\thanks{\href{\myfirstauthoremailurl}{\myfirstauthoremail}} \and \mysecondauthor\thanks{\href{\mysecondauthoremailurl}{\mysecondauthoremail}}}
+\date{\mydate}
+\publishers{\mypublisher}
+
+% ###################################################################################################
+% HEADER/FOOTER
+% ###################################################################################################
+\clearscrheadfoot
+
+\ihead[\gcxshortv]{\gcxshortv}
+\chead[]{}
+\ohead[\headmark]{\headmark}
+\ifoot[]{}
+\cfoot[]{}
+\ofoot[\pagemark]{\pagemark}
+
+\setkomafont{pagehead}{\scshape}
+\setkomafont{pagenumber}{\slshape}
+
+\pagestyle{scrheadings}
+
+\linespread{1.25}
+\typearea[current]{last}
+
+\addtokomafont{section}{\color{sectioncolor}}
+
+% ###################################################################################################
+% COLORS
+% ###################################################################################################
+\newboolean{blackwhite}
+\setboolean{blackwhite}{false}
+
+\ifblackwhite % BLACK-WHITE
+\definecolor{sectioncolor}{rgb}{0.000000,0.000000,0.000000}
+
+\definecolor{hyperreflinkcolor}{rgb}{0.000000,0.000000,0.000000}
+\definecolor{hyperrefanchorcolor}{rgb}{0.000000,0.000000,0.000000}
+\definecolor{hyperrefcitecolor}{rgb}{0.000000,0.000000,0.000000}
+\definecolor{hyperreffilecolor}{rgb}{0.000000,0.000000,0.000000}
+\definecolor{hyperrefmenucolor}{rgb}{0.000000,0.000000,0.000000}
+\definecolor{hyperrefurlcolor}{rgb}{0.000000,0.000000,0.000000}
+
+\definecolor{dirtreedircolor}{rgb}{0.000000,0.000000,0.000000}
+\definecolor{dirtreecommentcolor}{rgb}{0.000000,0.000000,0.000000}
+\else % COLOR
+\definecolor{sectioncolor}{rgb}{0.074510,0.247060,0.423520}
+
+\definecolor{hyperreflinkcolor}{rgb}{0.000000,0.000000,0.500000}
+\definecolor{hyperrefanchorcolor}{rgb}{1.000000,0.000000,0.000000}
+\definecolor{hyperrefcitecolor}{rgb}{0.000000,0.392157,0.000000}
+\definecolor{hyperreffilecolor}{rgb}{1.000000,0.000000,0.000000}
+\definecolor{hyperrefmenucolor}{rgb}{1.000000,0.000000,0.000000}
+\definecolor{hyperrefurlcolor}{rgb}{0.000000,0.000000,1.000000}
+
+\definecolor{dirtreedircolor}{rgb}{0.803922,0.360784,0.360784}
+\definecolor{dirtreecommentcolor}{rgb}{0.000000,0.000000,0.000000}
+\fi
+
+% ###################################################################################################
+% TOC SETTINGS
+% ###################################################################################################
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+
+% ###################################################################################################
+% BIBLIOGRAPHY SETTINGS
+% ###################################################################################################
+\selectbiblanguage{english}
+\setbibliographyfont{name}{\textsf}
+\setbibliographyfont{lastname}{\textsf}
+\setbibliographyfont{urldate}{\numdate\printdate}
+
+\declarebtxcommands{english}{%
+\def\btxurldatecomment#1{, visited on #1}%
+}
+
+% ###################################################################################################
+% PICTURES/IMAGES FOLDER
+% ###################################################################################################
+% \graphicspath{{images/}}
+
+% ###################################################################################################
+% PICTURE/IMAGES/TABLE SIZE/ROTATION
+% ###################################################################################################
+% \newlength{\imgwidth}
+% \setlength{\imgwidth}{0.66\pdfpageheight}
+% \newcommand{\myangle}{90}
+% \newlength{\tablwidth}
+% \setlength{\tablwidth}{\textwidth}
+
+% ###################################################################################################
+% DIRTREE SETTINGS
+% ###################################################################################################
+\renewcommand*{\DTstyle}{\ttfamily\color{dirtreedircolor}}
+\renewcommand*{\DTstylecomment}{\ttfamily\color{dirtreecommentcolor}}
+
+% ###################################################################################################
+% MISC
+% ###################################################################################################
+\newcommand{\mopentag}[1]{\langle #1 \rangle}
+\newcommand{\mclosetag}[1]{\langle/ #1 \rangle}
+\newcommand{\memptytag}[1]{\langle #1 /\rangle}
+
+\newcommand{\gcxlongv}[0]{GCX Engine Version 2.1}
+\newcommand{\gcxshortv}[0]{v2.1}
+
+% ###################################################################################################
+% NUMBERS UNIT SPACING
+% ###################################################################################################
+\newcommand{\myunit}[1]{\,\unit{#1}}
+
+% ###################################################################################################
+% HYPERREF SETTINGS
+% ###################################################################################################
+\hypersetup{draft=false,
+            final=true,
+            % a4paper=true,
+            setpagesize=false,
+            linktocpage=true,
+            colorlinks=true,
+            linkcolor=hyperreflinkcolor,
+            anchorcolor=hyperrefanchorcolor,
+            citecolor=hyperrefcitecolor,
+            filecolor=hyperreffilecolor,
+            menucolor=hyperrefmenucolor,
+            urlcolor=hyperrefurlcolor,
+            bookmarksopen=true,
+            bookmarksnumbered=true,
+            pdfpagemode={UseOutlines},
+            pdfdisplaydoctitle=true,
+            pdffitwindow=true,
+            pdflang={DE},
+            pdfnewwindow=true,
+            pdfpagelayout={SinglePage},
+            pdftitle={\mytitle\ \mysubtitle},
+            pdfauthor={\textcopyright\ \myauthor},
+            pdfsubject={\gcxlongv:\ \mytitle\ \mysubtitle},
+            pdfcreator={\LaTeX\ mit KOMA-Script und \flqq hyperref\frqq-Paket},
+            pdfproducer={pdfTeX-1.\the\pdftexversion\pdftexrevision},
+            pdfkeywords={\myhyperrefkeywords}
+}
+
+\urlstyle{same}
+
+% ###################################################################################################
+% MATH MODE SPACING
+% ###################################################################################################
+\newcommand{\mspaces}{\,}
+\newcommand{\mspaceb}{\:}
+
+\newcommand{\mtext}[1]{\text{\textit{#1}}}
+\newcommand{\memph}[1]{\textit{#1}} 
