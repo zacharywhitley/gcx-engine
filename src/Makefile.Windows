@@ -100,8 +100,8 @@ query_parser.h: query_parser.C
 
 query_parser.C: query_parser.y
 	bison -v -b query_parser -d query_parser.y
-	copy query_parser.tab.c query_parser.C
-	copy query_parser.tab.h query_parser.h
+	xcopy query_parser.tab.c query_parser.C
+	xcopy query_parser.tab.h query_parser.h
 
 query_parser.o: query_parser.C
 	$(CPP) -c query_parser.C
@@ -116,7 +116,7 @@ query_lexer.o: query_lexer.C query_parser.h
 sax.C: sax.l
 	flex sax.l
 	sed "s/yy/yyxml/g" < lex.yy.c > sax.C
-	del lex.yy.c
+	-del lex.yy.c
 
 sax.o: sax.C loader.h
 	$(CPP) -c sax.C
@@ -124,8 +124,8 @@ sax.o: sax.C loader.h
 ############################################
 # clean
 clean:
-	del *.o *~ gcx
-	del query_parser.h query_parser.output query_parser.C query_parser.tab.h query_parser.tab.c
-	del query_lexer.C
-	del sax.C
-	del *.quot
+	-del *.o *~ gcx
+	-del query_parser.h query_parser.output query_parser.C query_parser.tab.h query_parser.tab.c
+	-del query_lexer.C
+	-del sax.C
+	-del *.quot
