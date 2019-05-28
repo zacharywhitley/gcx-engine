@@ -1,7 +1,5 @@
-************************************************************
-******************* THE GCX XQUERY ENGINE ******************
-******************** Version 2.1 Readme ********************
-************************************************************
+# THE GCX XQUERY ENGINE
+Version 2.1 Readme
 
 The G(arbage) C(ollected) X(Query) engine is the first streaming
 XQuery engine that implements active garbage collection, a novel
